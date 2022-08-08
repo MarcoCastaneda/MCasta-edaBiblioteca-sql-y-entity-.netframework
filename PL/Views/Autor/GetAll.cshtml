@@ -1,0 +1,55 @@
+﻿@model ML.Autor
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Autor</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <h5>Seleccione un Autor para editarlo o + para agregar...</h5>
+        <hr />
+    </div>
+</div>
+
+@using (Html.BeginForm("GetAll", "Autor", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+}
+
+
+<div style="float:right;">
+    @Html.ActionLink("+", "Form", "Autor", htmlAttributes: new { @class = "btn btn-success" })
+</div>
+
+<table class="table table-bordered table-responsive">
+    <thead>
+        <tr>
+            <td>Editar</td>
+            <td style="display:none;">IdAutor</td>
+            <td>Apellido Paterno</td>
+            <td>Apellido Materno</td>
+
+
+            <td>Eliminar</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ML.Autor autor in Model.Autores)
+        {
+            <tr>
+                <td><a class="btn btn-warning glyphicon glyphicon-edit" href="@Url.Action("Form", "Autor", new { IdAutor = autor.IdAutor })"></a></td>
+                <td style="display:none;">@autor.IdAutor</td>
+                <td>@autor.Nombre</td>
+                <td>@autor.ApellidoPaterno  </td>
+                <td>@autor.ApellidoMaterno</td>
+
+
+
+                <td><a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("Delete", "Autor", new { IdAutor= autor.IdAutor})" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"></a></td>
+            </tr>
+        }
+
+    </tbody>
+</table>
